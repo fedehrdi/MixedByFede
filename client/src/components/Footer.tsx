@@ -55,7 +55,7 @@ export default function Footer() {
                 <p className="font-mono text-sm text-gray-300">Entro 24 ore</p>
               </div>
               <div className="mt-4 pt-4 border-t-[2px] border-white">
-                <div className="font-display text-xs tracking-widest text-gray-400 mb-2">SOCIAL</div>
+                <div className="font-display text-xs tracking-widest text-gray-400 mb-2">INSTAGRAM</div>
                 <a href="https://www.instagram.com/federico_accardi" target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-white hover:text-gray-300 transition-colors">
                   @federico_accardi
                 </a>
