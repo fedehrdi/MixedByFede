@@ -153,7 +153,7 @@ export default function Services() {
         <div className="container py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-[3px] border-white">
             {[
-              { q: "QUALI FORMATI ACCETTI?", a: "WAV (preferito), MP3 e FLAC. Per il mixing consiglio sempre WAV a 24bit/44.1kHz o superiore." },
+              { q: "QUALI FORMATI ACCETTI?", a: "WAV a 24bit/44.1kHz o superiore." },
               { q: "COME FUNZIONANO LE REVISIONI?", a: "Ogni pacchetto include un numero di revisioni. Puoi lasciare note scritte o vocali per comunicare le modifiche." },
               { q: "COME RICEVO I FILE FINALI?", a: "I file vengono caricati direttamente nella tua dashboard e puoi scaricarli in qualsiasi momento." },
             ].map((faq, idx) => (
