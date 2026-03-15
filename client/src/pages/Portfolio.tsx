@@ -153,6 +153,33 @@ export default function Portfolio() {
         </div>
       </section>
 
+      {/* Fiverr Trust Section */}
+      <section className="border-t-[5px] border-black bg-gray-50">
+        <div className="container py-16 md:py-20">
+          <div className="border-[3px] border-black p-12 md:p-16">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+              <div>
+                <div className="font-mono text-xs tracking-[0.4em] text-gray-400 mb-3">// VERIFICA FIVERR</div>
+                <h2 className="font-display text-[clamp(2rem,5vw,4rem)] leading-none mb-4">
+                  VEDI TUTTE<br />LE RECENSIONI
+                </h2>
+                <p className="text-lg text-gray-600 max-w-lg leading-relaxed">
+                  Con più di 500 progetti completati e una valutazione di 4.9/5 stelle su Fiverr, puoi verificare direttamente la qualità del mio lavoro e le testimonianze autentiche dei miei clienti.
+                </p>
+              </div>
+              <a
+                href="https://www.fiverr.com/lilspazio/mix-and-master-your-song-to-perfection"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-10 py-5 bg-black text-white font-display text-base tracking-widest border-[3px] border-black hover:bg-white hover:text-black transition-colors shadow-brutal-xl hover-brutal shrink-0 whitespace-nowrap"
+              >
+                VAI A FIVERR →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section>
         <div className="container py-16 md:py-20">

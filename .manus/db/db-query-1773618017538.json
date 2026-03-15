@@ -1,0 +1,9 @@
+{
+  "query": "\nDELETE FROM testimonials;\n\nINSERT INTO testimonials (clientName, clientRole, content, rating, serviceType, isPublished, sortOrder) VALUES\n('atomicddp', 'United States', 'Good mix, good guy, good price! No complaints 💯', 5, 'mixing', 1, 1),\n('fredtaylor15', 'Repeat Client', 'Excellent job', 5, 'mixing_mastering', 1, 2),\n('skyeryt', 'Hungary', 'very good job, will definitely buy again soon!', 5, 'mixing', 1, 3),\n('matteoporcelli', 'Italy - Repeat Client', 'Professionalità e ottimo risultato come sempre', 5, 'mixing_mastering', 1, 4),\n('kdiggy22', 'United States', 'Great Work! High Quality Delivery! Very Professional!', 5, 'mixing', 1, 5);\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway04.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 286DLymtBEAWfMr.root --database NtJgK9LYGJzgEKLSR8pY8f --execute \nDELETE FROM testimonials;\n\nINSERT INTO testimonials (clientName, clientRole, content, rating, serviceType, isPublished, sortOrder) VALUES\n('atomicddp', 'United States', 'Good mix, good guy, good price! No complaints 💯', 5, 'mixing', 1, 1),\n('fredtaylor15', 'Repeat Client', 'Excellent job', 5, 'mixing_mastering', 1, 2),\n('skyeryt', 'Hungary', 'very good job, will definitely buy again soon!', 5, 'mixing', 1, 3),\n('matteoporcelli', 'Italy - Repeat Client', 'Professionalità e ottimo risultato come sempre', 5, 'mixing_mastering', 1, 4),\n('kdiggy22', 'United States', 'Great Work! High Quality Delivery! Very Professional!', 5, 'mixing', 1, 5);\n",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 162
+}

@@ -59,3 +59,10 @@
 - [x] Aggiungere canzone portfolio (Kvrter-Can'tTrust.mp3)
 - [x] Aggiornare footer: solo Mixing & Mastering (togliere Produzione)
 - [x] Aggiornare marquee: MIXING · MASTERING · RISPOSTA 24H · SOLO WAV
+
+
+## Modifiche Richieste (Round 2)
+- [x] Rimuovere "Risposta entro 24 ore" dalla sezione contatti footer
+- [x] Sostituire 10 recensioni generiche con 5 vere recensioni da Fiverr
+- [x] Aggiungere sezione "Vedi tutte le recensioni su Fiverr" con link al gig
+- [x] Aggiungere link Fiverr nelle pagine Portfolio e Homepage testimonianze
