@@ -46,8 +46,8 @@ export default function Footer() {
             <div className="flex flex-col gap-4">
               <div>
                 <div className="font-display text-xs tracking-widest text-gray-400 mb-1">EMAIL</div>
-                <a href="mailto:info@mixedbyfede.com" className="font-mono text-sm text-white hover:text-gray-300 transition-colors">
-                  info@mixedbyfede.com
+                <a href="mailto:federicohrdi@gmail.com" className="font-mono text-sm text-white hover:text-gray-300 transition-colors">
+                  federicohrdi@gmail.com
                 </a>
               </div>
               <div>
@@ -55,14 +55,10 @@ export default function Footer() {
                 <p className="font-mono text-sm text-gray-300">Entro 24 ore</p>
               </div>
               <div className="mt-4 pt-4 border-t-[2px] border-white">
-                <div className="font-display text-xs tracking-widest text-gray-400 mb-2">FORMATI ACCETTATI</div>
-                <div className="flex gap-2 flex-wrap">
-                  {["WAV", "MP3", "FLAC"].map((f) => (
-                    <span key={f} className="font-mono text-xs px-2 py-1 border-[2px] border-white text-white">
-                      {f}
-                    </span>
-                  ))}
-                </div>
+                <div className="font-display text-xs tracking-widest text-gray-400 mb-2">SOCIAL</div>
+                <a href="https://www.instagram.com/federico_accardi" target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-white hover:text-gray-300 transition-colors">
+                  @federico_accardi
+                </a>
               </div>
             </div>
           </div>
@@ -74,7 +70,7 @@ export default function Footer() {
             © {new Date().getFullYear()} MIXEDBYFEDE. TUTTI I DIRITTI RISERVATI.
           </span>
           <span className="font-mono text-xs text-gray-600">
-            MIXING · MASTERING · PRODUZIONE
+            MIXING · MASTERING
           </span>
         </div>
       </div>

@@ -1,0 +1,9 @@
+{
+  "query": "\nDELETE FROM portfolio_items;\n\nINSERT INTO portfolio_items (title, artist, description, serviceType, genre, isPublished, sortOrder) VALUES\n('Can\\'t Trust', 'Kvrter', 'Brano hip-hop con atmosfera dark e beat aggressivo. Mixing completo con enfasi sulla chiarezza dei bassi e della voce. Mastering ottimizzato per streaming.', 'mixing_mastering', 'Hip-Hop', 1, 1);\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway04.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 286DLymtBEAWfMr.root --database NtJgK9LYGJzgEKLSR8pY8f --execute \nDELETE FROM portfolio_items;\n\nINSERT INTO portfolio_items (title, artist, description, serviceType, genre, isPublished, sortOrder) VALUES\n('Can\\'t Trust', 'Kvrter', 'Brano hip-hop con atmosfera dark e beat aggressivo. Mixing completo con enfasi sulla chiarezza dei bassi e della voce. Mastering ottimizzato per streaming.', 'mixing_mastering', 'Hip-Hop', 1, 1);\n",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 86
+}

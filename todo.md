@@ -49,3 +49,13 @@
 
 ## Testing
 - [x] Test unitari backend: auth, services, cart, orders, portfolio, testimonials, admin (12/12 passati)
+
+
+## Modifiche Richieste
+- [x] Aggiornare 3 servizi: Mix (30/35/40€), Master (20€), Mix+Master (40/45/50€)
+- [x] Aggiornare statistiche: 500+ progetti, 4 giorni consegna, 3 revisioni, WAV only, risposta 24h
+- [x] Aggiornare contatti: federicohrdi@gmail.com, Instagram @federico_accardi
+- [x] Inserire 10 recensioni 5 stelle professionali
+- [x] Aggiungere canzone portfolio (Kvrter-Can'tTrust.mp3)
+- [x] Aggiornare footer: solo Mixing & Mastering (togliere Produzione)
+- [x] Aggiornare marquee: MIXING · MASTERING · RISPOSTA 24H · SOLO WAV

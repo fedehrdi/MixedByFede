@@ -47,10 +47,10 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-2 grid-rows-2">
               {[
-                { num: "500+", label: "TRACCE\nMIXATE" },
-                { num: "48H", label: "CONSEGNA\nSTANDARD" },
+                { num: "500+", label: "PROGETTI\nCOMPLETATI" },
+                { num: "4 GG", label: "CONSEGNA\nSTANDARD" },
                 { num: "100%", label: "CLIENTI\nSODDISFATTI" },
-                { num: "∞", label: "REVISIONI\nINCLUSE*" },
+                { num: "3", label: "REVISIONI\nINCLUSE" },
               ].map((stat, i) => (
                 <div key={i} className={`flex flex-col justify-center items-start p-8 ${i % 2 === 0 ? "border-r-[3px]" : ""} ${i < 2 ? "border-b-[3px]" : ""} border-black`}>
                   <div className="font-display text-[5rem] leading-none text-black">{stat.num}</div>
@@ -69,8 +69,8 @@ export default function Home() {
             <span key={i} className="font-display text-sm tracking-[0.4em] flex items-center gap-8 shrink-0">
               <span>MIXING</span><span className="text-gray-500">◆</span>
               <span>MASTERING</span><span className="text-gray-500">◆</span>
-              <span>PRODUZIONE</span><span className="text-gray-500">◆</span>
-              <span>AUDIO PROFESSIONALE</span><span className="text-gray-500">◆</span>
+              <span>RISPOSTA 24H</span><span className="text-gray-500">◆</span>
+              <span>SOLO WAV</span><span className="text-gray-500">◆</span>
             </span>
           ))}
         </div>
@@ -96,7 +96,7 @@ export default function Home() {
                     {service.category === "mixing" ? "MIXING" : service.category === "mastering" ? "MASTERING" : "MIXING + MASTERING"}
                   </div>
                   <h3 className="font-display text-3xl md:text-4xl leading-none">{service.name}</h3>
-                  <p className="text-sm text-gray-600 leading-relaxed flex-1">{service.shortDescription}</p>
+                  <p className="text-sm text-gray-600 leading-relaxed flex-1">{service.description}</p>
                   <div className="flex items-end justify-between mt-4 pt-4 border-t-[2px] border-black">
                     <div>
                       <div className="font-mono text-xs text-gray-400">DA</div>
