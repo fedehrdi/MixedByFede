@@ -32,66 +32,7 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Portfolio grid */}
-      <section className="border-b-[5px] border-black">
-        <div className="container py-16 md:py-20">
-          <div className="font-mono text-xs tracking-[0.4em] text-gray-400 mb-8">// 01 PROGETTI</div>
 
-          {loadingPortfolio ? (
-            <div className="py-20 text-center">
-              <div className="font-display text-3xl text-gray-300 animate-pulse">CARICAMENTO...</div>
-            </div>
-          ) : !portfolio || portfolio.length === 0 ? (
-            <div className="border-[3px] border-black p-16 text-center">
-              <Music size={64} strokeWidth={1} className="mx-auto text-gray-200 mb-6" />
-              <div className="font-display text-4xl text-gray-300 mb-4">PORTFOLIO IN COSTRUZIONE</div>
-              <p className="font-mono text-sm text-gray-400 mb-8">I progetti verranno pubblicati a breve</p>
-              <Link href="/services" className="inline-flex items-center gap-3 px-8 py-4 bg-black text-white font-display text-sm tracking-widest border-[3px] border-black hover:bg-white hover:text-black transition-colors shadow-brutal hover-brutal">
-                SCOPRI I SERVIZI →
-              </Link>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-[3px] border-black">
-              {portfolio.map((item, idx) => {
-                const colPos = idx % 3;
-                return (
-                  <div
-                    key={item.id}
-                    className={`flex flex-col ${colPos < 2 ? "border-b-[3px] md:border-b-[3px] lg:border-b-0 lg:border-r-[3px]" : "border-b-[3px] lg:border-b-0"} ${Math.floor(idx / 3) < Math.floor((portfolio.length - 1) / 3) ? "border-b-[3px]" : ""} border-black`}
-                  >
-                    {/* Cover image or placeholder */}
-                    <div className="aspect-square border-b-[3px] border-black overflow-hidden bg-gray-100 relative">
-                      {item.coverImageUrl ? (
-                        <img src={item.coverImageUrl} alt={item.title} className="w-full h-full object-cover" />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-black">
-                          <div className="font-display text-[6rem] text-white opacity-20 leading-none">
-                            {item.artist.charAt(0).toUpperCase()}
-                          </div>
-                        </div>
-                      )}
-                      <div className="absolute top-3 left-3">
-                        <span className="font-mono text-xs tracking-widest px-2 py-1 bg-black text-white">
-                          {CATEGORY_LABELS[item.serviceType as keyof typeof CATEGORY_LABELS]}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="p-6 flex flex-col gap-2 flex-1">
-                      <div className="font-mono text-xs tracking-[0.3em] text-gray-400">{item.genre ?? "VARI GENERI"}</div>
-                      <h3 className="font-display text-2xl leading-none">{item.title}</h3>
-                      <div className="font-display text-lg text-gray-500 leading-none">{item.artist}</div>
-                      {item.description && (
-                        <p className="text-sm text-gray-600 leading-relaxed mt-2 flex-1">{item.description}</p>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      </section>
 
 
       {/* Spotify Album */}

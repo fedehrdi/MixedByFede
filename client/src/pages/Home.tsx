@@ -20,17 +20,22 @@ export default function Home() {
       <section className="border-b-[5px] border-black">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 min-h-[80vh]">
-            <div className="flex flex-col justify-center py-16 lg:py-24 border-b-[3px] lg:border-b-0 lg:border-r-[3px] border-black">
-              <div className="mb-6">
-                <span className="font-mono text-xs tracking-[0.4em] text-gray-500 border-[2px] border-black px-3 py-1">
-                  MIXING & MASTERING PROFESSIONALE
-                </span>
-              </div>
-              <h1 className="font-display text-[clamp(4rem,12vw,9rem)] leading-none text-black mb-8">
-                IL TUO<br />
-                SUONO.<br />
-                <span className="text-stroke">PERFETTO.</span>
-              </h1>
+            <div className="relative flex flex-col justify-center py-16 lg:py-24 border-b-[3px] lg:border-b-0 lg:border-r-[3px] border-black overflow-hidden">
+              {/* Background image */}
+              <div className="absolute inset-0 bg-cover bg-center opacity-15" style={{backgroundImage: "url('https://d2xsxph8kpxj0f.cloudfront.net/310519663441668204/NtJgK9LYGJzgEKLSR8pY8f/ChatGPTImage16mar2026,01_55_21_a4b645d7.png')"}}></div>
+              
+              {/* Content */}
+              <div className="relative z-10 px-6 lg:px-0">
+                <div className="mb-6">
+                  <span className="font-mono text-xs tracking-[0.4em] text-gray-500 border-[2px] border-black px-3 py-1">
+                    MIXING & MASTERING PROFESSIONALE
+                  </span>
+                </div>
+                <h1 className="font-display text-[clamp(4rem,12vw,9rem)] leading-none text-black mb-8">
+                  IL TUO<br />
+                  SUONO.<br />
+                  <span className="text-stroke">PERFETTO.</span>
+                </h1>
               <p className="text-lg md:text-xl text-gray-600 font-medium max-w-md mb-10 leading-relaxed">
                 Trasformo le tue tracce grezze in produzioni professionali pronte per la distribuzione. Mixing e mastering di livello mondiale.
               </p>
@@ -43,6 +48,7 @@ export default function Home() {
                     ACCEDI ORA
                   </a>
                 )}
+              </div>
               </div>
             </div>
             <div className="relative overflow-hidden">
