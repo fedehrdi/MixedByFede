@@ -66,3 +66,17 @@
 - [x] Sostituire 10 recensioni generiche con 5 vere recensioni da Fiverr
 - [x] Aggiungere sezione "Vedi tutte le recensioni su Fiverr" con link al gig
 - [x] Aggiungere link Fiverr nelle pagine Portfolio e Homepage testimonianze
+
+
+## Notifiche Email Automatiche
+- [x] Setup email service (Nodemailer)
+- [x] Creare template email per conferma ordine
+- [x] Creare template email per consegna finale
+- [x] Creare template email per nuovo ordine (admin)
+- [x] Creare template email per revisione ricevuta (admin)
+- [x] Creare template email per contenuto caricato (admin)
+- [x] Aggiungere trigger email nel checkout (conferma ordine)
+- [x] Aggiungere trigger email nell'upload file (admin notification)
+- [x] Aggiungere trigger email nella revisione (admin notification)
+- [x] Aggiungere trigger email nell'update status a "Completato" (consegna finale)
+- [ ] Test email automatiche e configurazione credenziali

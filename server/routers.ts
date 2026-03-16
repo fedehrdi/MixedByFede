@@ -39,6 +39,7 @@ import {
 } from "./db";
 import { notifyOwner } from "./_core/notification";
 import { TRPCError } from "@trpc/server";
+import { sendEmail, getOrderConfirmationEmail, getDeliveryEmail, getAdminNewOrderEmail, getAdminUploadEmail, getAdminReviewEmail } from "./emailService";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", { apiVersion: "2026-02-25.clover" });
 
@@ -174,6 +175,38 @@ export const appRouter = router({
         await clearCart(ctx.user.id);
         await notifyOwner({ title: "Nuovo ordine creato", content: `Ordine #${order.id} da ${ctx.user.name ?? ctx.user.email} — €${total.toFixed(2)}` });
 
+        // Invia email di conferma al cliente
+        const serviceNames = enriched.map(i => i.service.name);
+        const customerEmail = ctx.user.email || "";
+        const confirmationHtml = getOrderConfirmationEmail(
+          ctx.user.name || "Cliente",
+          order.id.toString(),
+          serviceNames,
+          total,
+          `${origin}/orders/${order.id}`
+        );
+        await sendEmail({
+          to: customerEmail,
+          subject: `Conferma Ordine #${order.id} - MixedByFede`,
+          html: confirmationHtml,
+        });
+
+        // Invia email admin di nuovo ordine
+        const adminEmail = process.env.EMAIL_USER || "federicohrdi@gmail.com";
+        const adminNewOrderHtml = getAdminNewOrderEmail(
+          order.id.toString(),
+          ctx.user.name || "Cliente",
+          customerEmail,
+          serviceNames,
+          total,
+          `${origin}/admin`
+        );
+        await sendEmail({
+          to: adminEmail,
+          subject: `[ADMIN] Nuovo Ordine #${order.id}`,
+          html: adminNewOrderHtml,
+        });
+
         return { checkoutUrl: session.url, orderId: order.id };
       }),
   }),
@@ -186,6 +219,22 @@ export const appRouter = router({
         if (!order || order.userId !== ctx.user.id) throw new TRPCError({ code: "FORBIDDEN" });
         const upload = await createFileUpload({ orderId: input.orderId, userId: ctx.user.id, fileName: input.fileName, fileKey: input.fileKey, fileUrl: input.fileUrl, fileSize: input.fileSize, mimeType: input.mimeType, uploadType: "client_source" });
         await notifyOwner({ title: "Nuovo file caricato", content: `Ordine #${input.orderId}: ${input.fileName} da ${ctx.user.name ?? ctx.user.email}` });
+
+        // Invia email admin di file caricato
+        const adminEmail = process.env.EMAIL_USER || "federicohrdi@gmail.com";
+        const origin = (ctx.req.headers.origin as string) || "http://localhost:3000";
+        const adminUploadHtml = getAdminUploadEmail(
+          input.orderId.toString(),
+          ctx.user.name || "Cliente",
+          input.fileName,
+          `${origin}/admin`
+        );
+        await sendEmail({
+          to: adminEmail,
+          subject: `[ADMIN] File Caricato - Ordine #${input.orderId}`,
+          html: adminUploadHtml,
+        });
+
         return upload;
       }),
     analyzeWithAI: protectedProcedure
@@ -287,8 +336,35 @@ export const appRouter = router({
     }),
     updateOrderStatus: adminProcedure
       .input(z.object({ orderId: z.number(), status: z.enum(["pending_payment", "paid", "in_progress", "revision", "delivered", "completed", "cancelled"]), adminNotes: z.string().optional() }))
-      .mutation(async ({ input }) => {
+      .mutation(async ({ ctx, input }) => {
+        const order = await getOrderById(input.orderId);
+        if (!order) throw new TRPCError({ code: "NOT_FOUND" });
+        
         await updateOrderStatus(input.orderId, input.status, input.adminNotes);
+
+        // Invia email di consegna finale al cliente se status è completed
+        if (input.status === "completed" && order.userId) {
+          const db = await getDb();
+          if (db) {
+            const { users } = await import("../drizzle/schema");
+            const { eq } = await import("drizzle-orm");
+            const userList = await db.select().from(users).where(eq(users.id, order.userId)).limit(1);
+            if (userList.length > 0 && userList[0].email) {
+              const origin = (ctx.req.headers.origin as string) || "http://localhost:3000";
+              const deliveryHtml = getDeliveryEmail(
+                userList[0].name || "Cliente",
+                input.orderId.toString(),
+                `${origin}/orders/${input.orderId}`
+              );
+              await sendEmail({
+                to: userList[0].email,
+                subject: `File Pronti - Ordine #${input.orderId} - MixedByFede`,
+                html: deliveryHtml,
+              });
+            }
+          }
+        }
+
         return { success: true };
       }),
     uploadFinalFile: adminProcedure
