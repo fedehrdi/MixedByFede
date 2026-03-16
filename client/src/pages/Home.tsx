@@ -20,12 +20,7 @@ export default function Home() {
       <section className="border-b-[5px] border-black">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 min-h-[80vh]">
-            <div className="relative flex flex-col justify-center py-16 lg:py-24 border-b-[3px] lg:border-b-0 lg:border-r-[3px] border-black overflow-hidden">
-              {/* Background image */}
-              <div className="absolute inset-0 bg-cover bg-center opacity-15" style={{backgroundImage: "url('https://d2xsxph8kpxj0f.cloudfront.net/310519663441668204/NtJgK9LYGJzgEKLSR8pY8f/ChatGPTImage16mar2026,01_55_21_a4b645d7.png')"}}></div>
-              
-              {/* Content */}
-              <div className="relative z-10 px-6 lg:px-0">
+            <div className="flex flex-col justify-center py-16 lg:py-24 border-b-[3px] lg:border-b-0 lg:border-r-[3px] border-black px-6 lg:px-0">
                 <div className="mb-6">
                   <span className="font-mono text-xs tracking-[0.4em] text-gray-500 border-[2px] border-black px-3 py-1">
                     MIXING & MASTERING PROFESSIONALE
@@ -49,7 +44,6 @@ export default function Home() {
                   </a>
                 )}
               </div>
-              </div>
             </div>
             <div className="relative overflow-hidden">
               <div className="absolute inset-0 bg-cover bg-center" style={{backgroundImage: "url('https://d2xsxph8kpxj0f.cloudfront.net/310519663441668204/NtJgK9LYGJzgEKLSR8pY8f/ChatGPTImage16mar2026,01_55_21_a4b645d7.png')", opacity: 0.3}}></div>
@@ -60,9 +54,9 @@ export default function Home() {
                   { num: "100%", label: "CLIENTI\nSODDISFATTI" },
                   { num: "3", label: "REVISIONI\nINCLUSE" },
                 ].map((stat, i) => (
-                  <div key={i} className={`flex flex-col justify-center items-start p-8 ${i % 2 === 0 ? "border-r-[3px]" : ""} ${i < 2 ? "border-b-[3px]" : ""} border-black`}>
-                    <div className="font-display text-[5rem] leading-none text-black">{stat.num}</div>
-                    <div className="font-mono text-xs tracking-[0.3em] text-gray-500 mt-2 whitespace-pre-line">{stat.label}</div>
+                  <div key={i} className={`flex flex-col justify-start items-start p-2 sm:p-4 lg:p-8 ${i % 2 === 0 ? "border-r-[3px]" : ""} ${i < 2 ? "border-b-[3px]" : ""} border-black`}>
+                    <div className="font-display text-[1.5rem] sm:text-[2.5rem] lg:text-[5rem] leading-none text-black">{stat.num}</div>
+                    <div className="font-mono text-[8px] sm:text-[10px] lg:text-xs tracking-[0.3em] text-gray-500 mt-1 sm:mt-2 whitespace-pre-line">{stat.label}</div>
                   </div>
                 ))}
               </div>
