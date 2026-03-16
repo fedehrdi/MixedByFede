@@ -3,6 +3,8 @@ import { drizzle } from "drizzle-orm/mysql2";
 import {
   InsertUser,
   cartItems,
+  clientReviews,
+  contacts,
   fileUploads,
   orderItems,
   orders,
@@ -12,6 +14,8 @@ import {
   users,
   voiceNotes,
   type InsertCartItem,
+  type InsertClientReview,
+  type InsertContact,
   type InsertFileUpload,
   type InsertOrder,
   type InsertOrderItem,
@@ -319,4 +323,53 @@ export async function deleteTestimonial(id: number) {
   const db = await getDb();
   if (!db) return;
   await db.delete(testimonials).where(eq(testimonials.id, id));
+}
+
+
+// ─── Contacts ────────────────────────────────────────────────────────────────
+
+export async function createContact(data: InsertContact) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.insert(contacts).values(data);
+  return result;
+}
+
+export async function getAllContacts() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(contacts).orderBy(contacts.createdAt);
+}
+
+export async function updateContactStatus(id: number, status: "new" | "read" | "replied") {
+  const db = await getDb();
+  if (!db) return;
+  await db.update(contacts).set({ status }).where(eq(contacts.id, id));
+}
+
+// ─── Client Reviews ──────────────────────────────────────────────────────────
+
+export async function createClientReview(data: InsertClientReview) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.insert(clientReviews).values(data);
+  return result;
+}
+
+export async function getClientReviewsByOrderId(orderId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(clientReviews).where(eq(clientReviews.orderId, orderId));
+}
+
+export async function getPublishedClientReviews() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(clientReviews).where(eq(clientReviews.isPublished, true)).orderBy(clientReviews.createdAt);
+}
+
+export async function updateClientReview(id: number, data: Partial<InsertClientReview>) {
+  const db = await getDb();
+  if (!db) return;
+  await db.update(clientReviews).set(data).where(eq(clientReviews.id, id));
 }

@@ -40,6 +40,7 @@ import {
 import { notifyOwner } from "./_core/notification";
 import { TRPCError } from "@trpc/server";
 import { sendEmail, getOrderConfirmationEmail, getDeliveryEmail, getAdminNewOrderEmail, getAdminUploadEmail, getAdminReviewEmail } from "./emailService";
+import { createContact, getAllContacts, updateContactStatus, createClientReview, getClientReviewsByOrderId, getPublishedClientReviews, updateClientReview } from "./db";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", { apiVersion: "2026-02-25.clover" });
 
@@ -382,6 +383,50 @@ export const appRouter = router({
         const uploads = await getFileUploadsByOrderId(input.id);
         const notes = await getVoiceNotesByOrderId(input.id);
         return { ...order, totalAmount: Number(order.totalAmount), items: items.map((i) => ({ ...i, price: Number(i.price) })), uploads, voiceNotes: notes };
+      }),
+  }),
+
+  contacts: router({
+    create: publicProcedure
+      .input(z.object({ name: z.string(), email: z.string().email(), message: z.string() }))
+      .mutation(async ({ input }) => {
+        await createContact(input);
+        const adminEmail = process.env.EMAIL_USER || "federicohrdi@gmail.com";
+        await sendEmail({
+          to: adminEmail,
+          subject: `[ADMIN] Nuovo Messaggio di Contatto da ${input.name}`,
+          html: `<p>Nuovo messaggio da <strong>${input.name}</strong> (${input.email}):</p><p>${input.message}</p>`,
+        });
+        return { success: true };
+      }),
+    adminList: adminProcedure.query(() => getAllContacts()),
+    updateStatus: adminProcedure
+      .input(z.object({ id: z.number(), status: z.enum(["new", "read", "replied"]) }))
+      .mutation(async ({ input }) => {
+        await updateContactStatus(input.id, input.status);
+        return { success: true };
+      }),
+  }),
+
+  reviews: router({
+    create: protectedProcedure
+      .input(z.object({ orderId: z.number(), rating: z.number().min(1).max(5), comment: z.string().optional() }))
+      .mutation(async ({ ctx, input }) => {
+        const order = await getOrderById(input.orderId);
+        if (!order || order.userId !== ctx.user.id) throw new TRPCError({ code: "FORBIDDEN" });
+        await createClientReview({ orderId: input.orderId, userId: ctx.user.id, rating: input.rating, comment: input.comment, isPublished: false });
+        return { success: true };
+      }),
+    getByOrder: protectedProcedure
+      .input(z.object({ orderId: z.number() }))
+      .query(async ({ input }) => getClientReviewsByOrderId(input.orderId)),
+    list: publicProcedure.query(() => getPublishedClientReviews()),
+    adminList: adminProcedure.query(() => getPublishedClientReviews()),
+    publish: adminProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ input }) => {
+        await updateClientReview(input.id, { isPublished: true });
+        return { success: true };
       }),
   }),
 });

@@ -45,18 +45,21 @@ export default function Home() {
                 )}
               </div>
             </div>
-            <div className="grid grid-cols-2 grid-rows-2">
-              {[
-                { num: "500+", label: "PROGETTI\nCOMPLETATI" },
-                { num: "4 GG", label: "CONSEGNA\nSTANDARD" },
-                { num: "100%", label: "CLIENTI\nSODDISFATTI" },
-                { num: "3", label: "REVISIONI\nINCLUSE" },
-              ].map((stat, i) => (
-                <div key={i} className={`flex flex-col justify-center items-start p-8 ${i % 2 === 0 ? "border-r-[3px]" : ""} ${i < 2 ? "border-b-[3px]" : ""} border-black`}>
-                  <div className="font-display text-[5rem] leading-none text-black">{stat.num}</div>
-                  <div className="font-mono text-xs tracking-[0.3em] text-gray-500 mt-2 whitespace-pre-line">{stat.label}</div>
-                </div>
-              ))}
+            <div className="relative overflow-hidden">
+              <div className="absolute inset-0 bg-cover bg-center" style={{backgroundImage: "url('https://d2xsxph8kpxj0f.cloudfront.net/310519663441668204/NtJgK9LYGJzgEKLSR8pY8f/ChatGPTImage16mar2026,01_55_21_a4b645d7.png')", opacity: 0.3}}></div>
+              <div className="relative grid grid-cols-2 grid-rows-2">
+                {[
+                  { num: "500+", label: "PROGETTI\nCOMPLETATI" },
+                  { num: "4 GG", label: "CONSEGNA\nSTANDARD" },
+                  { num: "100%", label: "CLIENTI\nSODDISFATTI" },
+                  { num: "3", label: "REVISIONI\nINCLUSE" },
+                ].map((stat, i) => (
+                  <div key={i} className={`flex flex-col justify-center items-start p-8 ${i % 2 === 0 ? "border-r-[3px]" : ""} ${i < 2 ? "border-b-[3px]" : ""} border-black`}>
+                    <div className="font-display text-[5rem] leading-none text-black">{stat.num}</div>
+                    <div className="font-mono text-xs tracking-[0.3em] text-gray-500 mt-2 whitespace-pre-line">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

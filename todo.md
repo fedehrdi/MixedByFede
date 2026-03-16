@@ -79,4 +79,16 @@
 - [x] Aggiungere trigger email nell'upload file (admin notification)
 - [x] Aggiungere trigger email nella revisione (admin notification)
 - [x] Aggiungere trigger email nell'update status a "Completato" (consegna finale)
-- [ ] Test email automatiche e configurazione credenziali
+- [x] Test email automatiche e configurazione credenziali
+
+
+## Nuove Funzionalità (Round 3)
+- [x] Upload foto background hero e integrazione in Home
+- [x] Creare pagina Contact con form (nome, email, messaggio)
+- [x] Aggiungere trigger email per messaggi contatti
+- [x] Rimuovere audio portfolio e aggiungere player Spotify
+- [x] Creare form recensioni clienti post-consegna
+- [x] Aggiungere tabella reviews nel database
+- [x] Creare timeline tracciamento ordini nella dashboard
+- [x] Aggiungere stati ordine visibili (pending, in_progress, revision, completed)
+- [x] Test tutte le nuove funzionalità (14/14 test passati)

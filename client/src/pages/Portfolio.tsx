@@ -93,6 +93,31 @@ export default function Portfolio() {
         </div>
       </section>
 
+
+      {/* Spotify Album */}
+      <section className="border-b-[5px] border-black">
+        <div className="container py-16 md:py-20">
+          <div className="font-mono text-xs tracking-[0.4em] text-gray-400 mb-8">// 02 SPOTIFY</div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="font-display text-[clamp(2.5rem,6vw,5rem)] leading-none mb-6">
+                ASCOLTA<br />
+                <span className="text-stroke">DIRETTAMENTE</span>
+              </h2>
+              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                Uno dei miei ultimi lavori disponibile su Spotify. Ascolta come suonano i miei mix e mastering professionali.
+              </p>
+              <a href="https://open.spotify.com/intl-it/album/61P3x1QlAcZ6C2XdhNsWFX?si=FDtrPPd0TVeXZMKzJE0Nhg" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 px-8 py-4 bg-black text-white font-display text-sm tracking-widest border-[3px] border-black hover:bg-white hover:text-black transition-colors shadow-brutal hover-brutal">
+                APRI SU SPOTIFY →
+              </a>
+            </div>
+            <div className="flex justify-center">
+              <iframe src="https://open.spotify.com/embed/album/61P3x1QlAcZ6C2XdhNsWFX?utm_source=generator" width="100%" height="352" frameBorder="0" allowFullScreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" className="border-[3px] border-black"></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials */}
       <section className="border-b-[5px] border-black">
         <div className="container py-16 md:py-20">

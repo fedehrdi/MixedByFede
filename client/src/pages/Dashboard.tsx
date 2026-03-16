@@ -2,6 +2,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
 import { ArrowRight, Package, Clock, CheckCircle, AlertCircle, XCircle, RefreshCw } from "lucide-react";
+import { useState } from "react";
 import { Link } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -19,6 +20,7 @@ const STATUS_CONFIG = {
 export default function Dashboard() {
   const { isAuthenticated, user } = useAuth();
   const { data: orders, isLoading } = trpc.orders.myOrders.useQuery(undefined, { enabled: isAuthenticated });
+  const [selectedOrder, setSelectedOrder] = useState<any>(null);
 
   if (!isAuthenticated) {
     return (
@@ -63,6 +65,53 @@ export default function Dashboard() {
               <div className="font-mono text-xs text-gray-400">TOTALE ORDINI</div>
               <div className="font-display text-3xl leading-none">{orders?.length ?? 0}</div>
             </div>
+
+
+            {/* Order Status Timeline */}
+            {selectedOrder && (
+              <div className="border-[3px] border-black">
+                <div className="px-6 py-4 border-b-[3px] border-black bg-black text-white">
+                  <div className="font-display text-sm tracking-widest">TRACCIAMENTO ORDINE #{selectedOrder.id}</div>
+                </div>
+                <div className="p-8">
+                  <div className="relative">
+                    {/* Timeline line */}
+                    <div className="absolute left-4 top-0 bottom-0 w-[2px] bg-black"></div>
+                    
+                    {/* Timeline steps */}
+                    <div className="space-y-8 ml-20">
+                      {[
+                        { status: "pending_payment", label: "Pagamento in attesa", icon: "💳" },
+                        { status: "paid", label: "Pagamento confermato", icon: "✓" },
+                        { status: "in_progress", label: "Mixing in corso", icon: "🎚️" },
+                        { status: "revision", label: "In revisione", icon: "👂" },
+                        { status: "delivered", label: "Pronto per il download", icon: "📥" },
+                        { status: "completed", label: "Completato", icon: "🎉" },
+                      ].map((step, idx) => {
+                        const isCompleted = ["pending_payment", "paid", "in_progress", "revision", "delivered", "completed"].indexOf(selectedOrder.status) >= idx;
+                        const isActive = selectedOrder.status === step.status;
+                        return (
+                          <div key={step.status} className="relative">
+                            <div className={`absolute -left-[34px] w-8 h-8 rounded-full border-[3px] flex items-center justify-center text-lg transition-colors ${
+                              isActive ? "bg-black text-white border-black" : isCompleted ? "bg-black text-white border-black" : "bg-white border-black"
+                            }`}>
+                              {step.icon}
+                            </div>
+                            <div>
+                              <div className={`font-display text-sm tracking-widest ${isActive ? "text-black" : isCompleted ? "text-gray-600" : "text-gray-400"}`}>
+                                {step.label}
+                              </div>
+                              {isActive && <div className="font-mono text-xs text-gray-500 mt-1">STATO ATTUALE</div>}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
           </div>
         </div>
       </section>

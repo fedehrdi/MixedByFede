@@ -30,6 +30,8 @@ export default function OrderDetail({ params }: Props) {
   const [isUploading, setIsUploading] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState<number | null>(null);
   const [aiResult, setAiResult] = useState<Record<number, unknown>>({});
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [reviewData, setReviewData] = useState({ rating: 5, comment: "" });
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
 
@@ -45,6 +47,16 @@ export default function OrderDetail({ params }: Props) {
       toast.success("Analisi AI completata");
     },
     onError: (e) => { setIsAnalyzing(null); toast.error("Errore analisi AI", { description: e.message }); },
+  });
+
+  const createReview = trpc.reviews.create.useMutation({
+    onSuccess: () => {
+      utils.orders.getById.invalidate({ id: orderId });
+      setShowReviewForm(false);
+      setReviewData({ rating: 5, comment: "" });
+      toast.success("Grazie per la tua recensione!");
+    },
+    onError: (e) => toast.error("Errore invio recensione", { description: e.message }),
   });
 
   const transcribeVoice = trpc.voiceNotes.transcribe.useMutation({
@@ -378,6 +390,67 @@ export default function OrderDetail({ params }: Props) {
               </div>
             )}
           </div>
+
+
+            {/* Review Section */}
+            {order.status === "completed" && (
+              <div>
+                <div className="px-6 py-4 border-b-[3px] border-black bg-black text-white">
+                  <div className="font-display text-sm tracking-widest">LASCIA UNA RECENSIONE</div>
+                </div>
+                <div className="p-6">
+                  {!showReviewForm ? (
+                    <button
+                      onClick={() => setShowReviewForm(true)}
+                      className="w-full px-6 py-4 bg-black text-white font-display text-sm tracking-widest border-[3px] border-black hover:bg-white hover:text-black transition-colors shadow-brutal hover-brutal"
+                    >
+                      SCRIVI UNA RECENSIONE
+                    </button>
+                  ) : (
+                    <div className="space-y-4">
+                      <div>
+                        <label className="font-display text-sm tracking-widest mb-3 block">VALUTAZIONE</label>
+                        <div className="flex gap-2">
+                          {[1, 2, 3, 4, 5].map((r) => (
+                            <button
+                              key={r}
+                              onClick={() => setReviewData({ ...reviewData, rating: r })}
+                              className={`px-4 py-2 border-[2px] transition-colors ${reviewData.rating === r ? "bg-black text-white border-black" : "border-black hover:bg-gray-100"}`}
+                            >
+                              {r}★
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                      <div>
+                        <label className="font-display text-sm tracking-widest mb-3 block">COMMENTO (OPZIONALE)</label>
+                        <textarea
+                          value={reviewData.comment}
+                          onChange={(e) => setReviewData({ ...reviewData, comment: e.target.value })}
+                          placeholder="Condividi la tua esperienza..."
+                          className="w-full border-[2px] border-black p-4 font-mono text-sm min-h-[120px]"
+                        />
+                      </div>
+                      <div className="flex gap-3">
+                        <button
+                          onClick={() => createReview.mutate({ orderId, rating: reviewData.rating, comment: reviewData.comment || undefined })}
+                          disabled={createReview.isPending}
+                          className="flex-1 px-6 py-3 bg-black text-white font-display text-sm tracking-widest border-[3px] border-black hover:bg-white hover:text-black transition-colors disabled:opacity-50"
+                        >
+                          {createReview.isPending ? "INVIO..." : "INVIA RECENSIONE"}
+                        </button>
+                        <button
+                          onClick={() => setShowReviewForm(false)}
+                          className="flex-1 px-6 py-3 border-[3px] border-black font-display text-sm tracking-widest hover:bg-gray-100 transition-colors"
+                        >
+                          ANNULLA
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
 
           {/* Sidebar */}
           <div className="flex flex-col">
