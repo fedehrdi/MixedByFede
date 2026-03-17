@@ -46,7 +46,7 @@ export default function Portfolio() {
                 <span className="text-stroke">DIRETTAMENTE</span>
               </h2>
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                Uno dei miei ultimi lavori disponibile su Spotify. Ascolta come suonano i miei mix e mastering professionali.
+                Uno dei miei ultimi lavori disponibile su Spotify. Ascolta come suonano i miei mix e master professionali.
               </p>
               <a href="https://open.spotify.com/intl-it/album/61P3x1QlAcZ6C2XdhNsWFX?si=FDtrPPd0TVeXZMKzJE0Nhg" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 px-8 py-4 bg-black text-white font-display text-sm tracking-widest border-[3px] border-black hover:bg-white hover:text-black transition-colors shadow-brutal hover-brutal">
                 APRI SU SPOTIFY →
