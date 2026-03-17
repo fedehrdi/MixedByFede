@@ -26,6 +26,7 @@ export default function Footer() {
                 { href: "/", label: "Home" },
                 { href: "/services", label: "Servizi" },
                 { href: "/portfolio", label: "Portfolio" },
+                { href: "/contact", label: "Contatti" },
                 { href: "/cart", label: "Carrello" },
                 { href: "/dashboard", label: "Dashboard" },
               ].map((link) => (

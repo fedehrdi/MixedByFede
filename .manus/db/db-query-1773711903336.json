@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE services SET features = '[\"EQ\",\"Compressione\",\"Automazione\",\"Effetti\",\"Bilanciamento stereo\",\"WAV 24 bit\"]' WHERE slug IN ('mix-10', 'mix-20', 'mix-plus');\n\nUPDATE services SET features = '[\"EQ\",\"Compressione\",\"Automazione\",\"Effetti\",\"Bilanciamento stereo\",\"Loudness targeting\",\"Limiting trasparente\",\"WAV 24 bit\"]' WHERE slug IN ('mixmaster-10', 'mixmaster-20', 'mixmaster-plus');",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway04.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 286DLymtBEAWfMr.root --database NtJgK9LYGJzgEKLSR8pY8f --execute UPDATE services SET features = '[\"EQ\",\"Compressione\",\"Automazione\",\"Effetti\",\"Bilanciamento stereo\",\"WAV 24 bit\"]' WHERE slug IN ('mix-10', 'mix-20', 'mix-plus');\n\nUPDATE services SET features = '[\"EQ\",\"Compressione\",\"Automazione\",\"Effetti\",\"Bilanciamento stereo\",\"Loudness targeting\",\"Limiting trasparente\",\"WAV 24 bit\"]' WHERE slug IN ('mixmaster-10', 'mixmaster-20', 'mixmaster-plus');",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 77
+}
