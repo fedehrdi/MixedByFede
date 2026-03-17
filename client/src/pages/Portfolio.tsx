@@ -38,7 +38,7 @@ export default function Portfolio() {
       {/* Spotify Album */}
       <section className="border-b-[5px] border-black">
         <div className="container py-16 md:py-20">
-          <div className="font-mono text-xs tracking-[0.4em] text-gray-400 mb-8">// 02 SPOTIFY</div>
+          <div className="font-mono text-xs tracking-[0.4em] text-gray-400 mb-8">// SPOTIFY</div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="font-display text-[clamp(2.5rem,6vw,5rem)] leading-none mb-6">
@@ -63,7 +63,7 @@ export default function Portfolio() {
       <section className="border-b-[5px] border-black">
         <div className="container py-16 md:py-20">
           <div className="mb-12">
-            <div className="font-mono text-xs tracking-[0.4em] text-gray-400 mb-3">// 02 RECENSIONI</div>
+            <div className="font-mono text-xs tracking-[0.4em] text-gray-400 mb-3">// RECENSIONI</div>
             <h2 className="font-display text-[clamp(3rem,7vw,6rem)] leading-none">
               COSA<br />DICONO
             </h2>
