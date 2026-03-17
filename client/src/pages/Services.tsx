@@ -137,7 +137,7 @@ export default function Services() {
         ) : services && services.length > 0 ? (
           <>
             <CategorySection title="MIXING" subtitle="// 01" items={mixing} />
-            <CategorySection title="MASTER" subtitle="// 02" items={mastering} />
+            <CategorySection title="MASTERING" subtitle="// 02" items={mastering} />
             <CategorySection title="MIXING + MASTERING" subtitle="// 03" items={both} />
           </>
         ) : (
