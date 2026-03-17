@@ -17,6 +17,7 @@ export default function Navbar() {
     { href: "/", label: "Home" },
     { href: "/services", label: "Servizi" },
     { href: "/portfolio", label: "Portfolio" },
+    { href: "/contact", label: "Contatti" },
   ];
 
   return (
