@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE services SET features = JSON_ARRAY(\n  'Equalizzazione professionale',\n  'Compressione dinamica',\n  'Bilanciamento livelli',\n  'Automazioni volume',\n  'Consegna WAV 24bit'\n) WHERE category = 'mixing';\n\nUPDATE services SET features = JSON_ARRAY(\n  'Loudness targeting',\n  'Effetti (Reverb, Delay ecc.)',\n  'Consegna WAV 24bit',\n  'Mastering completo'\n) WHERE category = 'mastering';\n\nUPDATE services SET features = JSON_ARRAY(\n  'Equalizzazione professionale',\n  'Compressione dinamica',\n  'Bilanciamento livelli',\n  'Automazioni volume',\n  'Effetti (Reverb, Delay ecc.)',\n  'Loudness targeting',\n  'Consegna WAV 24bit',\n  'Mastering completo'\n) WHERE category = 'mixing_mastering';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway04.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 286DLymtBEAWfMr.root --database NtJgK9LYGJzgEKLSR8pY8f --execute UPDATE services SET features = JSON_ARRAY(\n  'Equalizzazione professionale',\n  'Compressione dinamica',\n  'Bilanciamento livelli',\n  'Automazioni volume',\n  'Consegna WAV 24bit'\n) WHERE category = 'mixing';\n\nUPDATE services SET features = JSON_ARRAY(\n  'Loudness targeting',\n  'Effetti (Reverb, Delay ecc.)',\n  'Consegna WAV 24bit',\n  'Mastering completo'\n) WHERE category = 'mastering';\n\nUPDATE services SET features = JSON_ARRAY(\n  'Equalizzazione professionale',\n  'Compressione dinamica',\n  'Bilanciamento livelli',\n  'Automazioni volume',\n  'Effetti (Reverb, Delay ecc.)',\n  'Loudness targeting',\n  'Consegna WAV 24bit',\n  'Mastering completo'\n) WHERE category = 'mixing_mastering';",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 206
+}

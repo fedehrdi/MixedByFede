@@ -45,8 +45,7 @@ export default function Home() {
                 )}
               </div>
             </div>
-            <div className="relative overflow-hidden">
-              <div className="absolute inset-0 bg-cover bg-center" style={{backgroundImage: "url('https://d2xsxph8kpxj0f.cloudfront.net/310519663441668204/NtJgK9LYGJzgEKLSR8pY8f/ChatGPTImage16mar2026,01_55_21_a4b645d7.png')", opacity: 0.3}}></div>
+            <div className="relative overflow-hidden bg-cover bg-center" style={{backgroundImage: "url('https://d2xsxph8kpxj0f.cloudfront.net/310519663441668204/NtJgK9LYGJzgEKLSR8pY8f/ChatGPTImage16mar2026,01_55_21_a4b645d7.png')", backgroundPosition: 'center', backgroundSize: 'cover'}}>
               <div className="relative grid grid-cols-2 grid-rows-2">
                 {[
                   { num: "500+", label: "PROGETTI\nCOMPLETATI" },
@@ -72,8 +71,6 @@ export default function Home() {
             <span key={i} className="font-display text-sm tracking-[0.4em] flex items-center gap-8 shrink-0">
               <span>MIXING</span><span className="text-gray-500">◆</span>
               <span>MASTERING</span><span className="text-gray-500">◆</span>
-              <span>RISPOSTA 24H</span><span className="text-gray-500">◆</span>
-              <span>SOLO WAV</span><span className="text-gray-500">◆</span>
             </span>
           ))}
         </div>
