@@ -66,7 +66,7 @@ export default function Services() {
                 </div>
                 <div className="text-right">
                   <div className="flex items-center gap-2 font-mono text-xs text-gray-500 mb-1">
-                    <Clock size={12} /> {service.deliveryDays} GIORNI
+                    <Clock size={12} /> {service.category === "mastering" ? "2" : service.deliveryDays} GIORNI
                   </div>
                   <div className="flex items-center gap-2 font-mono text-xs text-gray-500">
                     <RotateCcw size={12} /> {service.revisions} REVISIONI
@@ -137,7 +137,7 @@ export default function Services() {
         ) : services && services.length > 0 ? (
           <>
             <CategorySection title="MIXING" subtitle="// 01" items={mixing} />
-            <CategorySection title="MASTERING" subtitle="// 02" items={mastering} />
+            <CategorySection title="MASTER" subtitle="// 02" items={mastering} />
             <CategorySection title="MIXING + MASTERING" subtitle="// 03" items={both} />
           </>
         ) : (
@@ -153,7 +153,7 @@ export default function Services() {
         <div className="container py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-[3px] border-white">
             {[
-              { q: "QUALI FORMATI ACCETTI?", a: "WAV a 24bit/44.1kHz." },
+              { q: "QUALI FORMATI ACCETTI?", a: "WAV, MP3, FLAC" },
               { q: "COME FUNZIONANO LE REVISIONI?", a: "Ogni pacchetto include 3 revisioni gratuite. Puoi lasciare note scritte o vocali per comunicare le modifiche." },
               { q: "COME RICEVO I FILE FINALI?", a: "I file vengono caricati direttamente nella tua dashboard e puoi scaricarli in qualsiasi momento." },
             ].map((faq, idx) => (
