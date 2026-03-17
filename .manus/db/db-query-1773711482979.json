@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE services SET features = JSON_ARRAY(\n  TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(features, ',', 1), ',', -1)),\n  TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(features, ',', 2), ',', -1)),\n  TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(features, ',', 3), ',', -1)),\n  TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(features, ',', 4), ',', -1)),\n  TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(features, ',', 5), ',', -1)),\n  TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(features, ',', 6), ',', -1)),\n  TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(features, ',', 7), ',', -1)),\n  TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(features, ',', 8), ',', -1))\n) WHERE features LIKE '%,%';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway04.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 286DLymtBEAWfMr.root --database NtJgK9LYGJzgEKLSR8pY8f --execute UPDATE services SET features = JSON_ARRAY(\n  TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(features, ',', 1), ',', -1)),\n  TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(features, ',', 2), ',', -1)),\n  TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(features, ',', 3), ',', -1)),\n  TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(features, ',', 4), ',', -1)),\n  TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(features, ',', 5), ',', -1)),\n  TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(features, ',', 6), ',', -1)),\n  TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(features, ',', 7), ',', -1)),\n  TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(features, ',', 8), ',', -1))\n) WHERE features LIKE '%,%';",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 73
+}

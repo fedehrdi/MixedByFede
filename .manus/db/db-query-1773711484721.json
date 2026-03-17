@@ -1,0 +1,15 @@
+{
+  "query": "SELECT id, name, features FROM services LIMIT 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway04.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 286DLymtBEAWfMr.root --database NtJgK9LYGJzgEKLSR8pY8f --execute SELECT id, name, features FROM services LIMIT 1;",
+  "rows": [
+    {
+      "id": "30001",
+      "name": "Mix - massimo 10 tracce",
+      "features": "[\"EQ\", \"Compressione\", \"Automazione\", \"Effetti\", \"Bilanciamento stereo\", \"Bilanciamento stereo\", \"Bilanciamento stereo\", \"Bilanciamento stereo\"]"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tfeatures\n30001\tMix - massimo 10 tracce\t[\"EQ\", \"Compressione\", \"Automazione\", \"Effetti\", \"Bilanciamento stereo\", \"Bilanciamento stereo\", \"Bilanciamento stereo\", \"Bilanciamento stereo\"]\n",
+  "stderr": "",
+  "execution_time_ms": 118
+}
