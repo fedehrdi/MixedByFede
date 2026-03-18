@@ -10,10 +10,12 @@ import {
   addToCart,
   clearCart,
   createFileUpload,
+  createNotification,
   createOrder,
   createPortfolioItem,
   createTestimonial,
   createVoiceNote,
+  deleteNotification,
   deletePortfolioItem,
   deleteTestimonial,
   getAllOrders,
@@ -22,13 +24,17 @@ import {
   getAllTestimonials,
   getCartByUserId,
   getFileUploadsByOrderId,
+  getNotificationsByUserId,
   getOrderById,
   getOrderItemsByOrderId,
   getOrdersByUserId,
   getPublishedPortfolioItems,
   getPublishedTestimonials,
   getServiceById,
+  getUnreadNotificationsByUserId,
   getVoiceNotesByOrderId,
+  markAllNotificationsAsRead,
+  markNotificationAsRead,
   removeFromCart,
   updateFileAiAnalysis,
   updateOrderStatus,
@@ -426,6 +432,44 @@ export const appRouter = router({
       .input(z.object({ id: z.number() }))
       .mutation(async ({ input }) => {
         await updateClientReview(input.id, { isPublished: true });
+        return { success: true };
+      }),
+  }),
+
+  notifications: router({
+    list: protectedProcedure.query(async ({ ctx }) => {
+      return getNotificationsByUserId(ctx.user.id);
+    }),
+    unread: protectedProcedure.query(async ({ ctx }) => {
+      return getUnreadNotificationsByUserId(ctx.user.id);
+    }),
+    markAsRead: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ input }) => {
+        await markNotificationAsRead(input.id);
+        return { success: true };
+      }),
+    markAllAsRead: protectedProcedure.mutation(async ({ ctx }) => {
+      await markAllNotificationsAsRead(ctx.user.id);
+      return { success: true };
+    }),
+    delete: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ input }) => {
+        await deleteNotification(input.id);
+        return { success: true };
+      }),
+    adminCreate: adminProcedure
+      .input(z.object({
+        userId: z.number(),
+        orderId: z.number().optional(),
+        type: z.enum(["order_created", "order_in_progress", "order_revision_needed", "order_completed", "order_cancelled", "contact_received", "contact_replied", "payment_received", "custom"]),
+        title: z.string(),
+        message: z.string(),
+        actionUrl: z.string().optional(),
+      }))
+      .mutation(async ({ input }) => {
+        await createNotification(input);
         return { success: true };
       }),
   }),

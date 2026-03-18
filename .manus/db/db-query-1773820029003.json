@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE `notifications` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`userId` int NOT NULL,\n\t`orderId` int,\n\t`type` enum('order_created','order_in_progress','order_revision_needed','order_completed','order_cancelled','contact_received','contact_replied','payment_received','custom') NOT NULL,\n\t`title` varchar(256) NOT NULL,\n\t`message` text NOT NULL,\n\t`isRead` boolean NOT NULL DEFAULT false,\n\t`actionUrl` varchar(512),\n\t`createdAt` timestamp NOT NULL DEFAULT (now()),\n\tCONSTRAINT `notifications_id` PRIMARY KEY(`id`)\n);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway04.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 286DLymtBEAWfMr.root --database NtJgK9LYGJzgEKLSR8pY8f --execute CREATE TABLE `notifications` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`userId` int NOT NULL,\n\t`orderId` int,\n\t`type` enum('order_created','order_in_progress','order_revision_needed','order_completed','order_cancelled','contact_received','contact_replied','payment_received','custom') NOT NULL,\n\t`title` varchar(256) NOT NULL,\n\t`message` text NOT NULL,\n\t`isRead` boolean NOT NULL DEFAULT false,\n\t`actionUrl` varchar(512),\n\t`createdAt` timestamp NOT NULL DEFAULT (now()),\n\tCONSTRAINT `notifications_id` PRIMARY KEY(`id`)\n);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 349
+}

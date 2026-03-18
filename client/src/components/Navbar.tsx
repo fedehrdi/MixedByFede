@@ -4,6 +4,7 @@ import { trpc } from "@/lib/trpc";
 import { ShoppingCart, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
+import { NotificationCenter } from "./NotificationCenter";
 
 export default function Navbar() {
   const { user, isAuthenticated, logout } = useAuth();
@@ -50,6 +51,13 @@ export default function Navbar() {
 
           {/* Right actions */}
           <div className="flex items-center gap-0">
+            {/* Notifications */}
+            {isAuthenticated && (
+              <div className="hidden md:flex items-center px-4 py-2 border-l-[2px] border-black h-16 md:h-20">
+                <NotificationCenter />
+              </div>
+            )}
+
             {/* Cart */}
             {isAuthenticated && (
               <Link

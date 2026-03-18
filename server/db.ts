@@ -6,6 +6,7 @@ import {
   clientReviews,
   contacts,
   fileUploads,
+  notifications,
   orderItems,
   orders,
   portfolioItems,
@@ -17,6 +18,7 @@ import {
   type InsertClientReview,
   type InsertContact,
   type InsertFileUpload,
+  type InsertNotification,
   type InsertOrder,
   type InsertOrderItem,
   type InsertPortfolioItem,
@@ -372,4 +374,43 @@ export async function updateClientReview(id: number, data: Partial<InsertClientR
   const db = await getDb();
   if (!db) return;
   await db.update(clientReviews).set(data).where(eq(clientReviews.id, id));
+}
+
+// ─── Notifications ───────────────────────────────────────────────────────────
+
+export async function createNotification(data: InsertNotification) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.insert(notifications).values(data);
+  return result;
+}
+
+export async function getNotificationsByUserId(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(notifications).where(eq(notifications.userId, userId)).orderBy(desc(notifications.createdAt));
+}
+
+export async function getUnreadNotificationsByUserId(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(notifications).where(and(eq(notifications.userId, userId), eq(notifications.isRead, false))).orderBy(desc(notifications.createdAt));
+}
+
+export async function markNotificationAsRead(notificationId: number) {
+  const db = await getDb();
+  if (!db) return;
+  await db.update(notifications).set({ isRead: true }).where(eq(notifications.id, notificationId));
+}
+
+export async function markAllNotificationsAsRead(userId: number) {
+  const db = await getDb();
+  if (!db) return;
+  await db.update(notifications).set({ isRead: true }).where(eq(notifications.userId, userId));
+}
+
+export async function deleteNotification(notificationId: number) {
+  const db = await getDb();
+  if (!db) return;
+  await db.delete(notifications).where(eq(notifications.id, notificationId));
 }
