@@ -165,6 +165,13 @@ export default function Cart() {
                     <><Lock size={16} strokeWidth={2.5} /> PROCEDI AL PAGAMENTO</>
                   )}
                 </button>
+                <div className="mt-4 pt-4 border-t-[2px] border-gray-200">
+                  <div className="font-mono text-xs text-gray-400 mb-2">Metodi di pagamento accettati:</div>
+                  <div className="flex items-center justify-center gap-3 flex-wrap">
+                    <span className="font-mono text-xs px-2 py-1 border border-gray-300 rounded">💳 Carta</span>
+                    <span className="font-mono text-xs px-2 py-1 border border-gray-300 rounded">🅿️ PayPal</span>
+                  </div>
+                </div>
                 <div className="mt-3 flex items-center justify-center gap-2 font-mono text-xs text-gray-400">
                   <Lock size={10} /> Pagamento sicuro con Stripe
                 </div>

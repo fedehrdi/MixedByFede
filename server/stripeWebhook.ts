@@ -36,14 +36,23 @@ export function registerStripeWebhook(app: Express) {
         const session = event.data.object as Stripe.Checkout.Session;
         const orderId = session.metadata?.order_id;
         const paymentIntentId = session.payment_intent as string;
+        const paymentMethod = session.payment_method_types?.[0] || "card";
 
         if (orderId && session.id) {
           await updateOrderStripeData(session.id, paymentIntentId);
           const order = await getOrderByCheckoutSession(session.id);
           if (order) {
+            const paymentMethodLabel: Record<string, string> = {
+              card: "Carta di credito",
+              paypal: "PayPal",
+              apple_pay: "Apple Pay",
+            };
+
+            const methodLabel = paymentMethodLabel[paymentMethod] || paymentMethod;
+
             await notifyOwner({
               title: `Pagamento ricevuto — Ordine #${order.id}`,
-              content: `€${Number(order.totalAmount).toFixed(2)} da ${session.customer_email ?? "cliente"}`,
+              content: `€${Number(order.totalAmount).toFixed(2)} da ${session.customer_email ?? "cliente"} (${methodLabel})`,
             });
           }
         }

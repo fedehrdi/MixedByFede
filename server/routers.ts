@@ -159,7 +159,7 @@ export const appRouter = router({
 
         const origin = (ctx.req.headers.origin as string) || "http://localhost:3000";
         const session = await stripe.checkout.sessions.create({
-          payment_method_types: ["card"],
+          payment_method_types: ["card", "paypal"],
           line_items: enriched.map((i) => ({
             price_data: { currency: "eur", product_data: { name: i.service.name }, unit_amount: Math.round(i.service.price * 100) },
             quantity: i.quantity,
@@ -171,7 +171,7 @@ export const appRouter = router({
           metadata: { user_id: ctx.user.id.toString(), order_id: order.id.toString(), customer_email: ctx.user.email ?? "", customer_name: ctx.user.name ?? "" },
           success_url: `${origin}/orders/${order.id}?success=1`,
           cancel_url: `${origin}/cart?cancelled=1`,
-        });
+        } as any);
 
         const db = await getDb();
         if (db) {
