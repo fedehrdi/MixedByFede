@@ -44,6 +44,7 @@ import {
   getDb,
 } from "./db";
 import { notifyOwner } from "./_core/notification";
+import { notifyOrderStatusChange, notifyPaymentReceived, notifyNewContact } from "./notificationHelper";
 import { TRPCError } from "@trpc/server";
 import { sendEmail, getOrderConfirmationEmail, getDeliveryEmail, getAdminNewOrderEmail, getAdminUploadEmail, getAdminReviewEmail } from "./emailService";
 import { createContact, getAllContacts, updateContactStatus, createClientReview, getClientReviewsByOrderId, getPublishedClientReviews, updateClientReview } from "./db";
@@ -181,6 +182,15 @@ export const appRouter = router({
 
         await clearCart(ctx.user.id);
         await notifyOwner({ title: "Nuovo ordine creato", content: `Ordine #${order.id} da ${ctx.user.name ?? ctx.user.email} — €${total.toFixed(2)}` });
+        
+        // Invia notifica automatica al cliente
+        await notifyOrderStatusChange(
+          order.id,
+          ctx.user.id,
+          "order_created",
+          ctx.user.email || undefined,
+          ctx.user.name || undefined
+        );
 
         // Invia email di conferma al cliente
         const serviceNames = enriched.map(i => i.service.name);
@@ -349,25 +359,36 @@ export const appRouter = router({
         
         await updateOrderStatus(input.orderId, input.status, input.adminNotes);
 
-        // Invia email di consegna finale al cliente se status è completed
-        if (input.status === "completed" && order.userId) {
+        // Invia notifiche automatiche quando lo stato cambia
+        if (order.userId) {
           const db = await getDb();
           if (db) {
             const { users } = await import("../drizzle/schema");
             const { eq } = await import("drizzle-orm");
+            
             const userList = await db.select().from(users).where(eq(users.id, order.userId)).limit(1);
-            if (userList.length > 0 && userList[0].email) {
-              const origin = (ctx.req.headers.origin as string) || "http://localhost:3000";
-              const deliveryHtml = getDeliveryEmail(
-                userList[0].name || "Cliente",
-                input.orderId.toString(),
-                `${origin}/orders/${input.orderId}`
+            if (userList.length > 0) {
+              const user = userList[0];
+              
+              // Mappa status interno a chiave di notifica
+              const statusMap: Record<string, string> = {
+                "pending_payment": "order_created",
+                "paid": "order_created",
+                "in_progress": "order_in_progress",
+                "revision": "order_revision_needed",
+                "delivered": "order_delivered",
+                "completed": "order_completed",
+                "cancelled": "order_cancelled",
+              };
+              
+              const notificationKey = statusMap[input.status] || input.status;
+              await notifyOrderStatusChange(
+                input.orderId,
+                order.userId,
+                notificationKey,
+                user.email || undefined,
+                user.name || undefined
               );
-              await sendEmail({
-                to: userList[0].email,
-                subject: `File Pronti - Ordine #${input.orderId} - MixedByFede`,
-                html: deliveryHtml,
-              });
             }
           }
         }
@@ -398,6 +419,25 @@ export const appRouter = router({
       .mutation(async ({ input }) => {
         await createContact(input);
         const adminEmail = process.env.EMAIL_USER || "federicohrdi@gmail.com";
+        
+        // Invia notifica al proprietario (admin)
+        const db = await getDb();
+        if (db) {
+          const { users } = await import("../drizzle/schema");
+          const { eq } = await import("drizzle-orm");
+          const adminList = await db.select().from(users).where(eq(users.role, "admin")).limit(1);
+          if (adminList.length > 0) {
+            const admin = adminList[0];
+            await notifyNewContact(
+              admin.id,
+              input.name,
+              input.email,
+              input.message,
+              adminEmail
+            );
+          }
+        }
+        
         await sendEmail({
           to: adminEmail,
           subject: `[ADMIN] Nuovo Messaggio di Contatto da ${input.name}`,

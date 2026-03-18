@@ -1,12 +1,49 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Bell, X, Check, CheckCheck } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { getWebSocketInstance } from "@/lib/websocket";
+import type { WebSocketNotification } from "@/lib/websocket";
+import { useAuth } from "@/_core/hooks/useAuth";
 
 export function NotificationCenter() {
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useAuth();
   const utils = trpc.useUtils();
+  const ws = getWebSocketInstance();
+
+  // Connetti al WebSocket quando il componente viene montato
+  useEffect(() => {
+    if (!user?.id) return;
+
+    // Connetti al WebSocket
+    ws.connect(user.id).catch(console.error);
+
+    // Sottoscrivi alle notifiche
+    const unsubscribe = ws.subscribe((notification: WebSocketNotification) => {
+      console.log("[NotificationCenter] Notification received:", notification);
+      // Invalida le notifiche per ricaricarle
+      utils.notifications.unread.invalidate();
+      utils.notifications.list.invalidate();
+      // Mostra un toast
+      toast.success(notification.title, {
+        description: notification.message,
+      });
+    });
+
+    // Invia un ping ogni 30 secondi per mantenere la connessione viva
+    const pingInterval = setInterval(() => {
+      if (ws.isConnected()) {
+        ws.ping();
+      }
+    }, 30000);
+
+    return () => {
+      unsubscribe();
+      clearInterval(pingInterval);
+    };
+  }, [user?.id, ws, utils]);
 
   // Fetch unread notifications
   const { data: unreadNotifications = [] } = trpc.notifications.unread.useQuery();
