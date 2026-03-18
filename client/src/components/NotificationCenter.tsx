@@ -17,11 +17,14 @@ export function NotificationCenter() {
   useEffect(() => {
     if (!user?.id) return;
 
+    let mounted = true;
+
     // Connetti al WebSocket
     ws.connect(user.id).catch(console.error);
 
     // Sottoscrivi alle notifiche
     const unsubscribe = ws.subscribe((notification: WebSocketNotification) => {
+      if (!mounted) return;
       console.log("[NotificationCenter] Notification received:", notification);
       // Invalida le notifiche per ricaricarle
       utils.notifications.unread.invalidate();
@@ -40,10 +43,11 @@ export function NotificationCenter() {
     }, 30000);
 
     return () => {
+      mounted = false;
       unsubscribe();
       clearInterval(pingInterval);
     };
-  }, [user?.id, ws, utils]);
+  }, [user?.id]);
 
   // Fetch unread notifications
   const { data: unreadNotifications = [] } = trpc.notifications.unread.useQuery();
