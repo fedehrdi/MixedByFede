@@ -60,12 +60,8 @@ async function startServer() {
   // Inizializza WebSocket per notifiche in tempo reale
   initializeWebSocket(server);
 
-  const preferredPort = parseInt(process.env.PORT || "3000");
-  const port = await findAvailablePort(preferredPort);
-
-  if (port !== preferredPort) {
-    console.log(`Port ${preferredPort} is busy, using port ${port} instead`);
-  }
+  // In development, always use port 3000 for consistency with frontend proxy
+  const port = process.env.NODE_ENV === "development" ? 3000 : parseInt(process.env.PORT || "3000");
 
   server.listen(port, () => {
     console.log(`Server running on http://localhost:${port}/`);
